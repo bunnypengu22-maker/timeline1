@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Our Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+
+    --cream:      #FDF0D5;
+    --cream-dim:  #F3E4C6;
+    --ink:        #1F1409;
+    --ink-soft:   #5B4A3A;
+    --red-deep:   #780000;
+    --red-bright: #C1121F;
+    --blue-deep:  #003049;
+    --blue-light: #669BBC;
+
+    --bg: var(--cream);
+    --bg-panel: var(--cream-dim);
+    --text: var(--ink);
+    --text-soft: var(--ink-soft);
+    --line: var(--red-deep);
+    --marker: var(--red-bright);
+    --accent: var(--blue-deep);
+    --accent-soft: var(--blue-light);
+  }
+
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --bg: #10161A;
+      --bg-panel: #171F24;
+      --text: #F3E4C6;
+      --text-soft: #B9AA95;
+      --line: var(--red-bright);
+      --marker: #E23B45;
+      --accent: var(--blue-light);
+      --accent-soft: var(--blue-light);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #10161A;
+    --bg-panel: #171F24;
+    --text: #F3E4C6;
+    --text-soft: #B9AA95;
+    --line: var(--red-bright);
+    --marker: #E23B45;
+    --accent: var(--blue-light);
+    --accent-soft: var(--blue-light);
+  }
+
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+
+  * { box-sizing: inherit; }
+
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem 6rem;
+  }
+
+  header.intro {
+    margin-bottom: 3.5rem;
+  }
+
+  header.intro .eyebrow-line {
+    width: 40px;
+    height: 3px;
+    background: var(--marker);
+    margin-bottom: 1.4rem;
+    border-radius: 2px;
+  }
+
+  header.intro h1 {
+    font-family: 'Fraunces', serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    line-height: 1.1;
+    margin: 0 0 0.6rem;
+    color: var(--text);
+  }
+
+  header.intro p {
+    margin: 0;
+    max-width: 46ch;
+    color: var(--text-soft);
+    font-size: 1.05rem;
+  }
+
+  ul.timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  ul.timeline::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: var(--line);
+    opacity: 0.35;
+  }
+
+  li.entry {
+    position: relative;
+    padding-left: 2.6rem;
+    margin-bottom: 0.35rem;
+  }
+
+  li.entry::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1.55rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--marker);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  li.entry details[open]::before,
+  li.entry:has(details[open])::before {
+    background: var(--marker);
+  }
+
+  details {
+    border-bottom: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  }
+
+  summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1.1rem 0.2rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  summary::-webkit-details-marker { display: none; }
+
+  summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  .entry-date {
+    flex: 0 0 auto;
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 500;
+    white-space: nowrap;
+    padding-top: 0.3rem;
+  }
+
+  .entry-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.35rem;
+    color: var(--text);
+    flex: 1 1 auto;
+  }
+
+  .entry-toggle {
+    flex: 0 0 auto;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
+    position: relative;
+    margin-top: 0.35rem;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .entry-toggle::before,
+  .entry-toggle::after {
+    content: "";
+    position: absolute;
+    background: var(--text-soft);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .entry-toggle::before { width: 9px; height: 1.5px; }
+  .entry-toggle::after   { width: 1.5px; height: 9px; transition: opacity 0.2s ease; }
+
+  details[open] .entry-toggle {
+    transform: rotate(45deg);
+    border-color: var(--marker);
+  }
+
+  .entry-body {
+    padding: 0.2rem 0.2rem 2rem 0;
+  }
+
+  .entry-photos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .photo-placeholder {
+    aspect-ratio: 4 / 5;
+    border-radius: 10px;
+    background: var(--bg-panel);
+    border: 1px dashed color-mix(in srgb, var(--text) 30%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-soft);
+    font-size: 0.7rem;
+    text-align: center;
+    padding: 0.5rem;
+    overflow: hidden;
+  }
+
+  .photo-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 9px;
+  }
+
+  .entry-memory {
+    margin: 0;
+    color: var(--text-soft);
+    font-size: 0.98rem;
+    line-height: 1.65;
+    max-width: 58ch;
+  }
+
+  footer.note {
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+    color: var(--text-soft);
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 420px) {
+    .entry-photos { grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+    .entry-title { font-size: 1.15rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="intro">
+    <div class="eyebrow-line"></div>
+    <h1>Our Timeline</h1>
+    <p>A running record of the days worth keeping. Tap any date to open it up.</p>
+  </header>
+
+  <ul class="timeline">
+
+    <li class="entry" data-date="2025-08-18">
+      <details>
+        <summary>
+          <span class="entry-date">18 Aug 2025</span>
+          <span class="entry-title">ICMS</span>
+          <span class="entry-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="entry-body">
+          <div class="entry-photos">
+            <div class="photo-placeholder"><img src="images/timeline/icms-01.jpeg" alt="ICMS memory, photo 1" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/icms-02.jpg" alt="ICMS memory, photo 2" loading="lazy"></div>
+          </div>
+          <p class="entry-memory">Where it began.</p>
+        </div>
+      </details>
+    </li>
+
+    <li class="entry" data-date="2026-09-16">
+      <details>
+        <summary>
+          <span class="entry-date">16 Sep 2026</span>
+          <span class="entry-title">CC 1</span>
+          <span class="entry-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="entry-body">
+          <div class="entry-photos">
+            <div class="photo-placeholder"><img src="images/timeline/cc1-16thS-01.jpg" alt="CC 1 memory, photo 1" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/cc1-16thS-02.jpg" alt="CC 1 memory, photo 2" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/cc1-16thS-03.jpg" alt="CC 1 memory, photo 3" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/cc1-16thS-04.jpg" alt="CC 1 memory, photo 4" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/cc1-16thS-05.jpg" alt="CC 1 memory, photo 5" loading="lazy"></div>
+          </div>
+        </div>
+      </details>
+    </li>
+
+    <li class="entry" data-date="2026-03-09">
+      <details>
+        <summary>
+          <span class="entry-date">09 Mar 2026</span>
+          <span class="entry-title">Ambuja</span>
+          <span class="entry-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="entry-body">
+          <div class="entry-photos">
+            <div class="photo-placeholder"><img src="images/timeline/ambuja9thM-01.jpeg" alt="Ambuja memory, photo 1" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/ambuja9thM-02.jpeg" alt="Ambuja memory, photo 2" loading="lazy"></div>
+          </div>
+        </div>
+      </details>
+    </li>
+
+    <li class="entry" data-date="2026-03-23">
+      <details>
+        <summary>
+          <span class="entry-date">23 Mar 2026</span>
+          <span class="entry-title">Biswab</span>
+          <span class="entry-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="entry-body">
+          <div class="entry-photos">
+            <div class="photo-placeholder"><img src="images/timeline/biswab23rdM-01.jpeg" alt="Biswab memory, photo 1" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/biswab23rdM-02.jpeg" alt="Biswab memory, photo 2" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/biswab23rdM-03.jpeg" alt="Biswab memory, photo 3" loading="lazy"></div>
+          </div>
+        </div>
+      </details>
+    </li>
+
+    <li class="entry" data-date="2026-04-02">
+      <details>
+        <summary>
+          <span class="entry-date">02 Apr 2026</span>
+          <span class="entry-title">Avani</span>
+          <span class="entry-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="entry-body">
+          <div class="entry-photos">
+            <div class="photo-placeholder"><img src="images/timeline/Avani2ndA-01.jpeg" alt="Avani memory, photo 1" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/Avani2ndA-02.jpeg" alt="Avani memory, photo 2" loading="lazy"></div>
+          </div>
+        </div>
+      </details>
+    </li>
+
+    <li class="entry" data-date="2026-04-03">
+      <details>
+        <summary>
+          <span class="entry-date">03 Apr 2026</span>
+          <span class="entry-title">CC 2</span>
+          <span class="entry-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="entry-body">
+          <div class="entry-photos">
+            <div class="photo-placeholder"><img src="images/timeline/cc2-3rdA-01.jpg" alt="CC 2 memory, photo 1" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/cc2-3rdA-02.jpg" alt="CC 2 memory, photo 2" loading="lazy"></div>
+          </div>
+        </div>
+      </details>
+    </li>
+
+    <li class="entry" data-date="2026-04-06">
+      <details>
+        <summary>
+          <span class="entry-date">06 Apr 2026</span>
+          <span class="entry-title">Visa</span>
+          <span class="entry-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="entry-body">
+          <div class="entry-photos">
+            <div class="photo-placeholder"><img src="images/timeline/visa-6thA-01.jpg" alt="Visa memory, photo 1" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/visa-6thA-02.jpg" alt="Visa memory, photo 2" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/visa-6thA-03.jpg" alt="Visa memory, photo 3" loading="lazy"></div>
+          </div>
+        </div>
+      </details>
+    </li>
+
+    <li class="entry" data-date="2026-06-30">
+      <details>
+        <summary>
+          <span class="entry-date">30 Jun 2026</span>
+          <span class="entry-title">Deer Park</span>
+          <span class="entry-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="entry-body">
+          <div class="entry-photos">
+            <div class="photo-placeholder"><img src="images/timeline/deerpark30thJu-01.jpg" alt="Deer Park memory, photo 1" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/deerpark30thJu-02.jpg" alt="Deer Park memory, photo 2" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/deerpark30thJu-03.jpg" alt="Deer Park memory, photo 3" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/deerpark30thJu-04.jpg" alt="Deer Park memory, photo 4" loading="lazy"></div>
+          </div>
+        </div>
+      </details>
+    </li>
+
+    <li class="entry" data-date="2026-07-30">
+      <details>
+        <summary>
+          <span class="entry-date">30 Jul 2026</span>
+          <span class="entry-title">Pengu's Birthday</span>
+          <span class="entry-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="entry-body">
+          <div class="entry-photos">
+            <div class="photo-placeholder"><img src="images/timeline/pengubdy-30thJuly-01.jpg" alt="Pengu's birthday, photo 1" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/pengubdy-30thJuly-02.jpg" alt="Pengu's birthday, photo 2" loading="lazy"></div>
+            <div class="photo-placeholder"><img src="images/timeline/pengubdy-30thJuly-03.jpg" alt="Pengu's birthday, photo 3" loading="lazy"></div>
+          </div>
+        </div>
+      </details>
+    </li>
+
+  </ul>
+
+  <footer class="note">
+    The timeline is ordered newest-first; ICMS marks where it began.
+  </footer>
+
+</div>
+
+<script>
+  // Auto-sort entries newest-first by data-date, so new entries always land on top
+  // regardless of where they're pasted in the HTML.
+  (function () {
+    var list = document.querySelector('ul.timeline');
+    if (!list) return;
+    var entries = Array.prototype.slice.call(list.querySelectorAll('li.entry'));
+    entries.sort(function (a, b) {
+      var da = a.getAttribute('data-date') || '';
+      var db = b.getAttribute('data-date') || '';
+      return db.localeCompare(da); // descending: newest first
+    });
+    entries.forEach(function (li) { list.appendChild(li); });
+  })();
+</script>
+
+</body>
+</html>
