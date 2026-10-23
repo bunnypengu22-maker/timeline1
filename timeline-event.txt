@@ -1,6 +1,16 @@
 icms-01
 icms-02
 
+sanjidadi-cc1-5thfeb26-01
+sanjidadi-cc1-5thfeb26-02
+sanjidadi-cc1-5thfeb26-03
+sanjidadi-cc1-5thfeb26-04
+
+sanjidadi-college-22ndmar-01
+sanjidadi-college-22ndmar-02
+sanjidadi-college-22ndmar-03
+sanjidadi-college-22ndmar-04
+
 Avani2ndA-01
 Avani2ndA-02
 
@@ -32,3 +42,9 @@ cc1-16thS-02
 cc1-16thS-03
 cc1-16thS-04
 cc1-16thS-05
+
+sanjidadi-gc-19thoct-01
+sanjidadi-gc-19thoct-02
+sanjidadi-gc-19thoct-03
+sanjidadi-gc-19thoct-04
+sanjidadi-gc-19thoct-05
