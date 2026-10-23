@@ -77,6 +77,71 @@
     max-width: 640px;
     margin: 0 auto;
     padding: 4.5rem 1.5rem 6rem;
+    position: relative;
+  }
+
+  .timeline-nav {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .timeline-nav a {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--text-soft);
+    text-decoration: none;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .timeline-nav a:hover {
+    transform: translateY(-2px);
+    color: var(--marker);
+  }
+
+  .timeline-nav .nav-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+  }
+
+  .timeline-nav img {
+    display: block;
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .timeline-nav img {
+      filter: invert(1);
+      mix-blend-mode: screen;
+    }
+  }
+
+  :root[data-theme="dark"] .timeline-nav img {
+    filter: invert(1);
+    mix-blend-mode: screen;
+  }
+
+  .timeline-nav a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 420px) {
+    .timeline-nav { top: 1rem; right: 1rem; gap: 0.3rem; }
+    .timeline-nav a { width: 40px; height: 40px; }
+    .timeline-nav .nav-icon { width: 40px; height: 40px; }
+    .timeline-nav img { width: 32px; height: 32px; }
   }
 
   header.intro {
@@ -280,7 +345,16 @@
 </head>
 <body>
 
-<div class="page">
+<div class="page" id="page-top">
+
+  <nav class="timeline-nav" aria-label="Timeline shortcuts">
+    <a href="insta.html" title="Open pengu &amp; bunny on Instagram" aria-label="Open the pengu and bunny photo gallery">
+      <img src="images/icons/insta.jpg" alt="">
+    </a>
+    <a href="msgs.html" title="Open pinned messages" aria-label="Open pinned messages">
+      <img src="images/icons/letter.jpg" alt="">
+    </a>
+  </nav>
 
   <header class="intro">
     <div class="eyebrow-line"></div>
@@ -290,7 +364,7 @@
 
   <ul class="timeline">
 
-    <li class="entry" data-date="2025-08-18">
+    <li class="entry" id="timeline-beginning" data-date="2025-08-18">
       <details>
         <summary>
           <span class="entry-date">18 Aug 2025</span>
@@ -433,10 +507,10 @@
       </details>
     </li>
 
-    <li class="entry" data-date="2026-04-06">
+    <li class="entry" data-date="2026-08-06">
       <details>
         <summary>
-          <span class="entry-date">06 Apr 2026</span>
+          <span class="entry-date">06 Aug 2026</span>
           <span class="entry-title">Visa Collect day</span>
           <span class="entry-toggle" aria-hidden="true"></span>
         </summary>
@@ -486,7 +560,7 @@
       </details>
     </li>
 
-    <li class="entry" data-date="2026-10-19">
+    <li class="entry" id="timeline-latest" data-date="2026-10-19">
       <details>
         <summary>
           <span class="entry-date">19 Oct 2026</span>

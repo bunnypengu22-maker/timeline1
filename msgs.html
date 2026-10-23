@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf8">
+<title>pinned msgs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --page: #fbfaf8;
+    --paper: #fff;
+    --ink: #272321;
+    --muted: #827875;
+    --line: #e9e3df;
+    --rose: #ae5d65;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    background: var(--page);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--page);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: min(100% - 40px, 860px);
+    margin: 0 auto;
+    padding: 54px 0 72px;
+  }
+
+  header {
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  h1 {
+    margin: 0;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 2.4rem;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  .home-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--rose);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .add-form {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.8fr) minmax(0, 1.2fr);
+    gap: 14px 18px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .field { display: grid; gap: 7px; }
+  .field label { color: var(--muted); font-size: 0.78rem; font-weight: 700; }
+
+  input, textarea, button { font: inherit; }
+
+  input[type="date"], input[type="file"], textarea {
+    width: 100%;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid #ddd5d0;
+    border-radius: 4px;
+  }
+
+  input[type="date"], input[type="file"] { min-height: 42px; padding: 8px 10px; }
+  input[type="file"] { font-size: 0.82rem; }
+
+  textarea {
+    min-height: 92px;
+    padding: 10px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+
+  input:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible {
+    outline: 2px solid var(--rose);
+    outline-offset: 2px;
+  }
+
+  .thought-field { grid-column: 1 / -1; }
+
+  .form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .save-button {
+    min-height: 42px;
+    padding: 0 18px;
+    color: #fff;
+    background: var(--rose);
+    border: 0;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .save-button:hover { background: #914950; }
+
+  .status {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  .messages { display: grid; }
+
+  .message {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(20px, 5vw, 48px);
+    align-items: start;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .message-image {
+    display: block;
+    width: 100%;
+    max-height: 440px;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    background: #f1eeeb;
+  }
+
+  .message-copy { padding-top: 4px; }
+
+  .message-date {
+    margin: 0 0 16px;
+    color: var(--rose);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .message-thoughts {
+    margin: 0;
+    color: #514a47;
+    font-size: 1rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .remove-button {
+    margin-top: 22px;
+    padding: 0;
+    color: var(--muted);
+    background: none;
+    border: 0;
+    font-size: 0.8rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+
+  .empty-state {
+    margin: 24px 0 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 600px) {
+    .page { width: min(100% - 28px, 520px); padding-top: 32px; }
+    h1 { font-size: 2rem; }
+    .add-form { grid-template-columns: 1fr; gap: 14px; }
+    .thought-field, .form-actions { grid-column: auto; }
+    .message { grid-template-columns: minmax(0, 1fr); gap: 14px; padding: 22px 0; }
+    .message-image { max-height: 64vh; aspect-ratio: 4 / 3; }
+    .message-copy { padding: 0; }
+    .message-date { margin-bottom: 8px; }
+    .remove-button { margin-top: 12px; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .message { animation: enter 400ms ease-out both; }
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(7px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <header>
+    <h1>pinned msgs</h1>
+    <a class="home-link" href="index.html">Back to home</a>
+  </header>
+
+  <form class="add-form" id="message-form">
+    <div class="field">
+      <label for="message-image-input">Message screenshot</label>
+      <input id="message-image-input" name="image" type="file" accept="image/*" required>
+    </div>
+    <div class="field">
+      <label for="message-date-input">Date</label>
+      <input id="message-date-input" name="date" type="date" required>
+    </div>
+    <div class="field thought-field">
+      <label for="message-thoughts-input">Our thoughts about this message</label>
+      <textarea id="message-thoughts-input" name="thoughts" placeholder="Write what this message means to you..." required></textarea>
+    </div>
+    <div class="form-actions">
+      <button class="save-button" type="submit">Pin message</button>
+      <p class="status" id="save-status" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+
+  <section class="messages" id="messages" aria-label="Pinned messages"></section>
+</main>
+<script>
+  (function () {
+    var apiUrl = 'http://127.0.0.1:8765/api/messages';
+    var form = document.getElementById('message-form');
+    var list = document.getElementById('messages');
+    var status = document.getElementById('save-status');
+
+    function formatDate(dateValue) {
+      return new Date(dateValue + 'T00:00:00').toLocaleDateString(undefined, {
+        day: 'numeric', month: 'long', year: 'numeric'
+      });
+    }
+
+    async function readApiResponse(response) {
+      var body = await response.text();
+      if (!body) {
+        throw new Error(response.ok
+          ? 'The server returned an empty response. Please try again.'
+          : 'The server could not complete the request (HTTP ' + response.status + ').');
+      }
+      try {
+        return JSON.parse(body);
+      } catch (error) {
+        throw new Error('The server returned an unreadable response (HTTP ' + response.status + ').');
+      }
+    }
+
+    async function renderMessages() {
+      list.replaceChildren();
+      try {
+        var response = await fetch(apiUrl);
+        var messages = await readApiResponse(response);
+        if (!response.ok) throw new Error(messages.error || 'Could not load pinned messages');
+
+        if (messages.length === 0) {
+          var empty = document.createElement('p');
+          empty.className = 'empty-state';
+          empty.textContent = 'Your pinned messages will appear here.';
+          list.appendChild(empty);
+          return;
+        }
+
+        messages.forEach(function (message) {
+          var article = document.createElement('article');
+          article.className = 'message';
+
+          var image = document.createElement('img');
+          image.className = 'message-image';
+          image.src = message.image_url;
+          image.alt = 'Pinned message screenshot';
+          image.loading = 'lazy';
+
+          var copy = document.createElement('div');
+          copy.className = 'message-copy';
+
+          var date = document.createElement('p');
+          date.className = 'message-date';
+          date.textContent = formatDate(message.date);
+
+          var thoughts = document.createElement('p');
+          thoughts.className = 'message-thoughts';
+          thoughts.textContent = message.thoughts;
+
+          var remove = document.createElement('button');
+          remove.className = 'remove-button';
+          remove.type = 'button';
+          remove.textContent = 'Remove';
+          remove.setAttribute('aria-label', 'Remove pinned message from ' + formatDate(message.date));
+          remove.addEventListener('click', async function () {
+            try {
+              var deleteResponse = await fetch(apiUrl + '/' + encodeURIComponent(message.id), {
+                method: 'DELETE'
+              });
+              var deleteResult = await readApiResponse(deleteResponse);
+              if (!deleteResponse.ok) throw new Error(deleteResult.error || 'Could not remove message');
+              status.textContent = 'Message removed.';
+              await renderMessages();
+            } catch (error) {
+              status.textContent = 'Could not remove the pinned message.';
+            }
+          });
+
+          copy.append(date, thoughts, remove);
+          article.append(image, copy);
+          list.appendChild(article);
+        });
+      } catch (error) {
+        var unavailable = document.createElement('p');
+        unavailable.className = 'empty-state';
+        unavailable.textContent = 'Pinned messages could not be loaded. Start the local site server and reload this page.';
+        list.appendChild(unavailable);
+      }
+    }
+
+    function compressImage(file) {
+      return new Promise(function (resolve, reject) {
+        var reader = new FileReader();
+        reader.onerror = function () { reject(new Error('Could not read image.')); };
+        reader.onload = function () {
+          var image = new Image();
+          image.onerror = function () { reject(new Error('Please select a valid image.')); };
+          image.onload = function () {
+            var maxSide = 1200;
+            var scale = Math.min(1, maxSide / Math.max(image.naturalWidth, image.naturalHeight));
+            var canvas = document.createElement('canvas');
+            canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+            canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+            canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
+            resolve(canvas.toDataURL('image/jpeg', 0.72));
+          };
+          image.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      var file = form.elements.image.files[0];
+      if (!file) return;
+
+      status.textContent = 'Saving...';
+      try {
+        var imageData = await compressImage(file);
+        var response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+          image: imageData,
+          date: form.elements.date.value,
+          thoughts: form.elements.thoughts.value.trim()
+          })
+        });
+        var result = await readApiResponse(response);
+        if (!response.ok) throw new Error(result.error || 'Could not save');
+        form.reset();
+        status.textContent = 'Pinned.';
+        await renderMessages();
+      } catch (error) {
+        status.textContent = error.message || 'Could not save the pinned message.';
+      }
+    });
+
+    renderMessages();
+  })();
+</script>
+</body>
+</html>

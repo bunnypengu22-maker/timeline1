@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbfaf8">
+<title>pengu &amp; bunny</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --page: #fbfaf8;
+    --paper: #fff;
+    --ink: #272321;
+    --muted: #827875;
+    --line: #e9e3df;
+    --rose: #ae5d65;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    background: var(--page);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--page);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .profile-page {
+    width: min(100% - 40px, 920px);
+    margin: 0 auto;
+    padding: 52px 0 72px;
+  }
+
+  .profile {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 34px;
+    align-items: center;
+    padding: 0 0 38px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .profile-photo {
+    width: 142px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 48%;
+    padding: 4px;
+    border: 1px solid #d9b7b5;
+    background: var(--paper);
+  }
+
+  .profile-copy h1 {
+    margin: 0;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .profile-copy p {
+    margin: 10px 0 8px;
+    color: #514a47;
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .home-link {
+    color: var(--rose);
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 18px;
+    row-gap: 28px;
+    padding-top: 28px;
+  }
+
+  .post { min-width: 0; }
+
+  .post img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    background: #eee8e3;
+  }
+
+  .post time {
+    display: block;
+    margin: 10px 0 4px;
+    color: var(--rose);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .post p {
+    margin: 0;
+    color: #514a47;
+    font-size: 0.84rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 600px) {
+    .profile-page { width: min(100% - 28px, 520px); padding-top: 30px; }
+    .profile { grid-template-columns: 94px minmax(0, 1fr); gap: 18px; padding-bottom: 26px; }
+    .profile-photo { width: 90px; }
+    .profile-copy h1 { font-size: 1.55rem; }
+    .profile-copy p { margin: 7px 0; font-size: 0.88rem; }
+    .home-link { font-size: 0.84rem; }
+    .gallery { gap: 22px 10px; padding-top: 18px; }
+    .post time { margin-top: 7px; font-size: 0.68rem; }
+    .post p { font-size: 0.74rem; line-height: 1.4; }
+  }
+
+  @media (max-width: 360px) {
+    .profile-page { width: min(100% - 20px, 520px); }
+    .gallery { column-gap: 7px; }
+    .post p { font-size: 0.7rem; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .profile { animation: arrive 500ms ease-out both; }
+    .post { animation: arrive 500ms ease-out both; }
+    .post:nth-child(3n + 2) { animation-delay: 60ms; }
+    .post:nth-child(3n) { animation-delay: 120ms; }
+  }
+
+  @keyframes arrive {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<main class="profile-page">
+  <header class="profile">
+    <img class="profile-photo" src="images/timeline/icms-02.jpg" alt="Pengu and Bunny together">
+    <div class="profile-copy">
+      <h1>pengu &amp; bunny</h1>
+      <p>A little archive of our favorite days, small adventures, and the moments that feel like home.</p>
+      <a class="home-link" href="index.html">Our home page</a>
+    </div>
+  </header>
+
+  <section class="gallery" aria-label="Pengu and Bunny memories">
+    <article class="post">
+      <img src="images/timeline/sanjidadi-gc-19thoct-01.jpg" alt="Sanjida Di, Pengu and Bunny at Galawat and Criollo" loading="lazy">
+      <time datetime="2026-10-19">19 Oct 2026</time>
+      <p>What an amazing day, we had an hefty lunch followed by a cafe with a lovely view, I was mesmerized by staring at bunny as if I couldn't get enough of her. Di was as usual, the best company to be with, she is caring and protective, we ended up going to CC1, there spent some time.</p>
+    </article>
+    <article class="post">
+      <img src="images/timeline/cc1-16thS-01.jpg" alt="Pengu and Bunny at City Center 1" loading="lazy">
+      <time datetime="2026-09-16">16 Sep 2026</time>
+      <p>City center 1 visit - white twinning</p>
+    </article>
+    <article class="post">
+      <img src="images/timeline/visa-6thA-02.jpg" alt="Visa collection day together" loading="lazy">
+      <time datetime="2026-08-06">06 Aug 2026</time>
+      <p>Bunny ne meko kidnap kia, aur leke gyi khudke sath. We got the visa, and then we stopped at Rang de basanti dhaba for lunch.</p>
+    </article>
+    <article class="post">
+      <img src="images/timeline/pengubdy-30thJuly-01.jpg" alt="Pengu's birthday celebration" loading="lazy">
+      <time datetime="2026-07-30">30 Jul 2026</time>
+      <p>Pengu's birthday</p>
+    </article>
+    <article class="post">
+      <img src="images/timeline/deerpark30thJu-01.jpg" alt="A day at Deer Park and Axis Mall" loading="lazy">
+      <time datetime="2026-06-30">30 Jun 2026</time>
+      <p>Deer park and Axis mall</p>
+    </article>
+    <article class="post">
+      <img src="images/timeline/cc2-3rdA-01.jpg" alt="Pengu and Bunny at City Center 2" loading="lazy">
+      <time datetime="2026-04-03">03 Apr 2026</time>
+      <p>I took her to city center, we had food, had good conversation, and was stuck in the rain and the thunderstorm, but it was a lovely day indeed.</p>
+    </article>
+    <article class="post">
+      <img src="images/timeline/Avani2ndA-01.jpeg" alt="Avani visit with Debasmita" loading="lazy">
+      <time datetime="2026-04-02">02 Apr 2026</time>
+      <p>Today she told her best friend about us, I felt glad that she isn't worried to tell people about me whom she trusts and are close to her.</p>
+    </article>
+    <article class="post">
+      <img src="images/timeline/biswab23rdM-01.jpeg" alt="Biswa Bangla meet" loading="lazy">
+      <time datetime="2026-03-23">23 Mar 2026</time>
+      <p>It was a very random meet, she was attending CMA event, and in the backdrop since she came all the way, we thought why not see each other.</p>
+    </article>
+    <article class="post">
+      <img src="images/timeline/sanjidadi-college-22ndmar-01.jpg" alt="Sanjida Di's college visit" loading="lazy">
+      <time datetime="2026-03-22">22 Mar 2026</time>
+      <p>It was when college hosted Rebeca 2026, and di was in town, and she didn't got to see Sumi's college before so she visited, our second meet, and di was again warm, we had momo from a stall, showed di the campus a bit and enjoyed the good music.</p>
+    </article>
+    <article class="post">
+      <img src="images/timeline/ambuja9thM-01.jpeg" alt="Amari Cafe visit" loading="lazy">
+      <time datetime="2026-03-09">09 Mar 2026</time>
+      <p>It was one of our first few meets and I was so happy meeting her, seeing her and cracking jokes with her. Neither she nor I leave a moment to see each other, we are constantly in the mood ki bus dikh jaye or we chit chat and do our thing, which is to be in each others company.</p>
+    </article>
+    <article class="post">
+      <img src="images/timeline/sanjidadi-cc1-5thfeb26-01.jpg" alt="Sanjida Di's visit to City Center 1" loading="lazy">
+      <time datetime="2026-02-05">05 Feb 2026</time>
+      <p>This day was so good, I felt all the warmth and family like feeling from someone I met couple of months back. We had to walk and still bunny and di both didn't crib, the sandwich incident at tea junction and cup full of tea at yellow straw were the highlights of the day.</p>
+    </article>
+    <article class="post">
+      <img src="images/timeline/icms-01.jpeg" alt="ICMS 2025 at SOMS" loading="lazy">
+      <time datetime="2025-08-18">18 Aug 2025</time>
+      <p>This is where it all began. Those 3 days gave me a life partner for eternity, I still cannot forget those initial days, and I am still grateful that it happened.</p>
+    </article>
+  </section>
+</main>
+</body>
+</html>
